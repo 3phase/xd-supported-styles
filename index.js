@@ -6,15 +6,6 @@ var Supported = function (target, cssCommands) {
     this.targetDom = "";
     this.css = "";
     this.invalidRules = [];
-    this.loadPrerequesities().then(() => {
-        const cssPairs = this.parseCss();
-        this.validateCss(cssPairs);
-        let invalidRulesHTML = '';
-        this.invalidRules.forEach(rule => {
-            invalidRulesHTML += `<li>${rule}</li>`;
-        });
-        document.getElementById("content-projection").innerHTML = invalidRulesHTML;
-    });
 }
 
 Supported.prototype.loadPrerequesities = function () {
@@ -85,7 +76,6 @@ Supported.prototype.validateCss = function (pairs) {
         if (!(valueValidationElement instanceof HTMLTableElement)) {
             continue;
         }
-        // valueValidationElement.tBodies[0].rows[0].cells[0].innerHTML
         let valuePresent = false;
         for (const tableRow of valueValidationElement.tBodies[0].rows) {
             if (tableRow.cells[0].innerHTML == value) {
@@ -99,4 +89,14 @@ Supported.prototype.validateCss = function (pairs) {
     }
 }
 
+
 const runner = new Supported("http://localhost/adobe-plugin-ref.html", "http://localhost/style.css");
+runner.loadPrerequesities().then(() => {
+    const cssPairs = runner.parseCss();
+    runner.validateCss(cssPairs);
+    let invalidRulesHTML = '';
+    runner.invalidRules.forEach(rule => {
+        invalidRulesHTML += `<li>${rule}</li>`;
+    });
+    document.getElementById("content-projection").innerHTML = invalidRulesHTML;
+});
