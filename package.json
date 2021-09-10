@@ -12,6 +12,7 @@
   "dependencies": {
     "jquery": "^3.6.0",
     "node-fetch": "^3.0.0",
-    "xmldom": "^0.6.0"
+    "xmldom": "^0.6.0",
+    "xmlhttprequest": "^1.8.0"
   }
 }
