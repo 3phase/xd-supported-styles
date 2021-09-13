@@ -1,4 +1,4 @@
-# Does XD plugin environment supports your stylesheet?
+# Does XD plugin environment support your stylesheet?
 ## JS script to check that
 
 Latest script run is on 9/10/2021.
