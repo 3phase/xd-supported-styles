@@ -96,7 +96,7 @@ Supported.prototype.validateCss = function (pairs) {
 }
 
 
-const runner = new Supported("http://localhost/adobe-plugin-ref.html", "http://localhost/style-orig.css");
+const runner = new Supported("http://localhost/adobe-plugin-ref.html", "http://localhost/style.css");
 runner.loadPrerequesities().then(() => {
     const cssPairs = runner.parseCss();
     runner.validateCss(cssPairs);
