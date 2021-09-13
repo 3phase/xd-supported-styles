@@ -48,7 +48,7 @@ Supported.prototype.parseCss = function () {
     const cssRulesPairs = [];
     cssRules = cssRules.map(x => x.trim());
     cssRules.forEach(rule => {
-        let x = rule.split(';');
+        let x = rule.split('; ');
         x = x.filter(function (str) {
             return /\S/.test(str);
         });
@@ -63,10 +63,16 @@ Supported.prototype.validateCss = function (pairs) {
     for (const pair of pairs) {
         let rule = pair.split(':')[0] ? pair.split(':')[0].trim() : pair.split(':')[0];
         let value = pair.split(':')[1] ? pair.split(':')[1].trim() : pair.split(':')[1];
-        if (rule === 'background' || rule === 'opacity') {
+        if (rule === 'background' || rule === 'opacity' || rule === 'border') {
             continue;
         }
-        const result = self.targetDom.body.querySelector(`h3#css${rule}`);
+        let result;
+        try {
+            result = self.targetDom.body.querySelector(`h3#css${rule}`);
+        } catch (e) {
+            console.warn(e);
+            continue;
+        }
         if (!result) {
             self.invalidRules.push(pair);
             continue;
@@ -90,7 +96,7 @@ Supported.prototype.validateCss = function (pairs) {
 }
 
 
-const runner = new Supported("http://localhost/adobe-plugin-ref.html", "http://localhost/style.css");
+const runner = new Supported("http://localhost/adobe-plugin-ref.html", "http://localhost/style-orig.css");
 runner.loadPrerequesities().then(() => {
     const cssPairs = runner.parseCss();
     runner.validateCss(cssPairs);
